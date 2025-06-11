@@ -1,0 +1,28 @@
+# =======================================================
+#     Needed at Build Time (add to Github Varaibles)
+# =======================================================
+
+# Display Name for the app
+VITE_APP_TITLE=RecipeDB
+
+# Api Url
+VITE_API_URL=http://localhost:8000/api
+
+# Google Auth
+VITE_GOOGLE_CLIENT_ID=
+
+
+# =======================================================
+#               Only needed at Runtime
+# =======================================================
+
+# Deployment Environment
+ENVIRONMENT=development
+
+# Secret key
+# - Used to generate authentication tokens
+SECRET_KEY=
+
+# Superuser GID
+# - The Google ID of the user that can be automatically promoted to superuser.
+SUPERUSER_GID=
