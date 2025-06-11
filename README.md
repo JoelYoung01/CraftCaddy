@@ -1,6 +1,15 @@
-# Vue + FastAPI Template
+# Vue + FastAPI Application
 
-This template should help get you started developing with a static Vue 3 web application built with Vite and styled with Vuetify.
+This is an web application built with Vue 3 and FastAPI.
+
+## Tech Stack
+
+- Vue 3
+- Vuetify
+- FastAPI
+- SQLite
+- Docker
+- GitHub Actions
 
 ## Recommended IDE Setup
 
@@ -10,27 +19,19 @@ This template should help get you started developing with a static Vue 3 web app
 
 TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
 ## Project Setup
 
-### Step 1 - Create new Repo
+### Step 1 - Clone
 
-Create a new project in Github. You can either reference this template repo, or create an empty repository and clone this template repo. To clone, follow this process:
+CD to the directory you want to clone the repo to and run the following command to clone the repo from GitHub:
 
 ```bash
 git clone git@github.com:JoelYoung01/VueStaticSiteTemplate.git <project_name_here>
-cd <project_name_here>
-git init
-git add .
-git commit -m "Initial Commit"
-git remote add origin <new_repo_url>
-git push -u origin main
 ```
 
 ### Step 2 - Setup Environment
+
+> This repo has a Task that will run the following steps for you: `Initial Setup`
 
 Copy `.envtemplate` to a new file, `.env`, and fill out applicable values
 
@@ -66,6 +67,8 @@ pip install -r requirements.txt
 
 #### Compile and Hot-Reload for Development
 
+> Related Task: `Run Local Dev`
+
 ```bash
 # Run Vite Dev Server
 pnpm dev
@@ -76,29 +79,42 @@ fastapi dev api/main.py
 
 #### Type-Check, Compile and Minify for Production
 
+> Related Task: `pnpm: build`
+
 ```bash
 pnpm build
 ```
 
 #### Lint with [ESLint](https://eslint.org/)
 
+> Related Task: `pnpm: lint`
+
 ```bash
 pnpm lint
 ```
 
-## S3 Deployment
+#### Test Build for Deployment
 
-This repo comes with a GitHub Action that will deploy the site to an S3 bucket. To set this up, you'll need to add the following environment variables and secrets to your GitHub repository:
+To test your build, here are the steps:
 
-Environment Variables
+1. Lint and Build front-end
+2. Build Docker Image
+3. Run Docker Image
 
-- `APP_NAME` _lower-snake-case_
-- `APP_TITLE` _Display Name_
+> Related Task: `Test Build for Deployment`
 
-Secrets:
+```bash
+# Lint and Build front-end
+pnpm lint
+pnpm build
 
-- `AWS_ACCESS_KEY_ID`
-- `AWS_SECRET_ACCESS_KEY`
-- `S3_BUCKET`
+# Build Docker Image, pulling latest base image
+docker build --pull --rm -f Dockerfile -t craft-caddy:latest .
 
-The actions are set up to deploy to 3 environments; dev, stage, and prod. It is recommended to set up S3_BUCKET environment secret per environment.
+# Run Docker Image
+docker run --rm -d -p 8000:8000/tcp --env-file .env -e ENVIRONMENT=staging --name craft-caddy craft-caddy:latest
+```
+
+## Deployment
+
+This repo will build your image and push it to your user's ghcr each time you push to the main branch. From here, it is rather up to you how you deploy the image.

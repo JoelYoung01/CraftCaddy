@@ -12,7 +12,76 @@
       "command": "cmd",
       "args": [
         "/c",
-        "if not exist backend\\.env (copy backend\\.env.template backend\\.env)"
+        "if not exist .env (copy .env.template .env)"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "group": "Setup"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "py: create venv",
+      "type": "shell",
+      "dependsOn": [
+        "copy .env"
+      ],
+      "command": "py",
+      "args": [
+        "-m",
+        "venv",
+        "venv"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "group": "Setup"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "py: setup venv",
+      "type": "shell",
+      "dependsOn": [
+        "py: create venv"
+      ],
+      "command": "venv\\Scripts\\pip.exe",
+      "args": [
+        "install",
+        "-r",
+        "requirements.txt"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "group": "Setup"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "node: setup pnpm",
+      "type": "shell",
+      "command": "pnpm",
+      "args": [
+        "i"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "group": "Setup"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Initial Setup",
+      "dependsOn": [
+        "node: setup pnpm",
+        "py: setup venv"
       ],
       "options": {
         "cwd": "${workspaceFolder}"
@@ -78,6 +147,21 @@
     //            Build Tasks
     // ================================
     {
+      "label": "pnpm: lint",
+      "type": "shell",
+      "command": "pnpm",
+      "args": [
+        "lint"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "group": "Build"
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "pnpm: build",
       "type": "shell",
       "command": "pnpm",
@@ -103,7 +187,7 @@
         "-f",
         "'Dockerfile'",
         "-t",
-        "'recipedb:latest'",
+        "'craft-caddy:latest'",
         "'.'"
       ],
       "options": {
@@ -124,7 +208,30 @@
         "-d",
         "-p",
         "8000:8000/tcp",
-        "'recipedb:latest'",
+        "--env-file",
+        ".env",
+        "-e",
+        "ENVIRONMENT=staging",
+        "--name",
+        "'craft-caddy'",
+        "'craft-caddy:latest'",
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "group": "Build"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Test Build for Deployment",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "pnpm: lint",
+        "pnpm: build",
+        "docker: build",
+        "docker: run"
       ],
       "options": {
         "cwd": "${workspaceFolder}"
