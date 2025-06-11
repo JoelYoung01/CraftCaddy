@@ -7,7 +7,7 @@ on:
       image_name:
         description: "Name Of Image"
         required: false
-        default: "RecipeDB"
+        default: "craft-caddy"
 
 jobs:
   BuildApp:
