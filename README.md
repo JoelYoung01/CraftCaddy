@@ -112,8 +112,10 @@ pnpm build
 docker build --pull --rm -f Dockerfile -t craft-caddy:latest .
 
 # Run Docker Image
-docker run --rm -d -p 8000:8000/tcp --env-file .env -e ENVIRONMENT=staging --name craft-caddy craft-caddy:latest
+docker run --rm -d -p 8080:8000/tcp --env-file .env -e ENVIRONMENT=staging --name craft-caddy craft-caddy:latest
 ```
+
+Visiting `http://localhost:8080` should show you the application.
 
 ## Deployment
 

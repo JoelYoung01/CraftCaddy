@@ -133,7 +133,8 @@
       "label": "Run Local Dev",
       "dependsOn": [
         "pnpm: dev",
-        "fastapi: dev"
+        "fastapi: dev",
+        "open: dev site"
       ],
       "options": {
         "cwd": "${workspaceFolder}"
@@ -207,7 +208,7 @@
         "--rm",
         "-d",
         "-p",
-        "8000:8000/tcp",
+        "8080:8000/tcp",
         "--env-file",
         ".env",
         "-e",
@@ -225,13 +226,31 @@
       "problemMatcher": []
     },
     {
+      "label": "browser: open test site",
+      "type": "shell",
+      "command": "cmd",
+      "args": [
+        "/c",
+        "start",
+        "http://localhost:8080"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "group": "Build"
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "Test Build for Deployment",
       "dependsOrder": "sequence",
       "dependsOn": [
         "pnpm: lint",
         "pnpm: build",
         "docker: build",
-        "docker: run"
+        "docker: run",
+        "browser: open test site"
       ],
       "options": {
         "cwd": "${workspaceFolder}"
