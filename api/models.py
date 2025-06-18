@@ -32,6 +32,29 @@ class SubscriptionLevel(Enum):
     ENTERPRISE = 20
 
 
+class ProjectStatus(Enum):
+    CREATED = None
+    IDEA = 10
+    PLAN = 20
+    ACTIVE = 30
+    COMPLETE = 40
+    ARCHIVED = 50
+    CANCELLED = 60
+
+
+class TaskStatus(Enum):
+    CREATED = None
+    IN_PROGRESS = 10
+    COMPLETED = 20
+    CANCELLED = 30
+
+
+class TaskTier(Enum):
+    TIER_1 = 10
+    TIER_2 = 20
+    TIER_3 = 30
+
+
 class User_Permission(BaseDbModel, table=True):
     user_id: int = Field(default=None, foreign_key="user.id", primary_key=True)
     permission_id: int = Field(
@@ -81,20 +104,85 @@ class Upload(BaseIndexedDbModel, table=True):
     created_by: "User" = Relationship()
 
 
-class Application(BaseIndexedDbModel, table=True):
+class Project(BaseIndexedDbModel, table=True):
     created_by_id: int = Field(foreign_key="user.id")
     created_on: datetime = Field(sa_type=UTCDateTime)
     name: str
-
-    created_by: "User" = Relationship()
-
-
-class Report(BaseIndexedDbModel, table=True):
-    created_by_id: int = Field(foreign_key="user.id")
-    created_on: datetime = Field(sa_type=UTCDateTime)
-    title: str
     description: str
-    application_id: int = Field(foreign_key="application.id")
+    status: ProjectStatus
+    budget: float
+    public: bool = False
+    published_on: datetime | None = Field(sa_type=UTCDateTime)
+    showcase: bool = False
+    duration: float = 0
+    start_date: datetime | None = Field(sa_type=UTCDateTime)
 
     created_by: "User" = Relationship()
-    application: "Application" = Relationship()
+    expenses: list["Expense"] = Relationship(back_populates="project")
+
+
+class Expense(BaseIndexedDbModel, table=True):
+    project_id: int = Field(foreign_key="project.id")
+    name: str
+    description: str
+    amount: float
+    date: datetime = Field(sa_type=UTCDateTime)
+
+    project: "Project" = Relationship()
+
+
+class ProjectImage(BaseIndexedDbModel, table=True):
+    project_id: int = Field(foreign_key="project.id")
+    upload_id: int = Field(foreign_key="upload.id")
+
+    project: "Project" = Relationship()
+    upload: "Upload" = Relationship()
+
+
+class Tag(BaseIndexedDbModel, table=True):
+    name: str
+
+
+class ProjectTag(BaseIndexedDbModel, table=True):
+    project_id: int = Field(foreign_key="project.id")
+    tag_id: int = Field(foreign_key="tag.id")
+
+    project: "Project" = Relationship()
+    tag: "Tag" = Relationship()
+
+
+class Like(BaseIndexedDbModel, table=True):
+    user_id: int = Field(foreign_key="user.id")
+    project_id: int = Field(foreign_key="project.id")
+
+    user: "User" = Relationship()
+    project: "Project" = Relationship()
+
+
+class TimeLog(BaseIndexedDbModel, table=True):
+    project_id: int = Field(foreign_key="project.id")
+    user_id: int = Field(foreign_key="user.id")
+    date: datetime = Field(sa_type=UTCDateTime)
+    hours: float = 0
+
+    project: "Project" = Relationship()
+    user: "User" = Relationship()
+
+
+class Collaborator(BaseIndexedDbModel, table=True):
+    project_id: int = Field(foreign_key="project.id")
+    user_id: int = Field(foreign_key="user.id")
+
+    project: "Project" = Relationship()
+    user: "User" = Relationship()
+
+
+class Task(BaseIndexedDbModel, table=True):
+    project_id: int = Field(foreign_key="project.id")
+    name: str
+    description: str
+    status: TaskStatus
+    tier: TaskTier
+    due_date: datetime | None = Field(sa_type=UTCDateTime)
+
+    project: "Project" = Relationship()
