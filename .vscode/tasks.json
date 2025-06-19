@@ -134,7 +134,6 @@
       "dependsOn": [
         "pnpm: dev",
         "fastapi: dev",
-        "open: dev site"
       ],
       "options": {
         "cwd": "${workspaceFolder}"

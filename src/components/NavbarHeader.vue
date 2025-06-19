@@ -6,10 +6,9 @@ const sessionStore = useSessionStore();
 
 <template>
   <div class="header-bar d-flex text-black font-weight-bold justify-space-between">
-    <RouterLink v-if="sessionStore.isLoggedIn" to="/dashboard"> Dashboard </RouterLink>
-    <RouterLink v-else to="/"> Home </RouterLink>
-    <RouterLink v-if="!sessionStore.isLoggedIn" to="/login"> Log In </RouterLink>
-    <RouterLink v-else to="/account"> My Account </RouterLink>
+    <RouterLink class="text-h6" to="/"> CraftCaddy </RouterLink>
+    <RouterLink v-if="!sessionStore.isLoggedIn" to="/"> Log In </RouterLink>
+    <RouterLink v-else to="/"> My Account </RouterLink>
   </div>
 </template>
 
@@ -25,5 +24,9 @@ a {
 
 .router-link-active {
   color: rgb(var(--v-theme-primary));
+}
+
+.title {
+  font-size: 1.5rem;
 }
 </style>

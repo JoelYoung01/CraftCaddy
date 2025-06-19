@@ -1,60 +1,47 @@
 <script setup lang="ts">
-import BugZapLogoTransparent from "@/assets/bugzapper-transparent.png";
 import FadeIn from "@/components/FadeIn.vue";
+import Logo from "@/assets/app_logo.png";
 </script>
 
 <template>
-  <v-container max-width="500">
+  <v-container max-width="1000">
     <section id="title">
-      <div class="mx-auto">
-        <v-img :src="BugZapLogoTransparent" width="200" aspect-ratio="1" />
-      </div>
-      <h1 class="text-center text-h2 font-weight-bold mb-8">Bug Zapper</h1>
-      <div>
-        <v-btn
-          to="/bug/report/"
-          color="primary"
-          variant="outlined"
-          class="w-100 mb-5"
-          rounded
-          size="large"
-        >
-          Report a Bug
-        </v-btn>
-        <v-btn
-          to="/feature/request/"
-          color="primary"
-          variant="outlined"
-          rounded
-          size="large"
-          class="w-100 mb-5"
-        >
-          Request a Feature
-        </v-btn>
-      </div>
+      <v-row>
+        <v-col cols="12" lg="4">
+          <v-img :src="Logo" />
+        </v-col>
+        <v-col cols="12" lg="8">
+          <h1 class="text-h1">Idea</h1>
+          <h1 class="text-h1">Plan</h1>
+          <h1 class="text-h1">DO</h1>
+        </v-col>
+      </v-row>
     </section>
 
     <section id="about">
-      <h2 class="text-h4 font-weight-bold mb-5">What is Bug Zapper?</h2>
+      <h2 class="text-h4 font-weight-bold mb-5">How it works</h2>
       <FadeIn class="mb-10">
-        <h3 class="text-color-primary">Catch bugs early</h3>
+        <h3 class="text-color-primary">Start with an Idea</h3>
         <p>
-          Bug Zapper provides a clean and simple interface for your users to report bugs in detail,
-          including screenshots and system information.
+          You are enjoying your morning coffee on the deck and suddenly, an idea hits you for some
+          sort of project. Maybe it's a new app, or a different way of designing that shelf you've
+          been thinking about. Quick! Add it to your CraftCaddy!
         </p>
       </FadeIn>
       <FadeIn class="mb-10">
-        <h3 class="text-color-primary">Track user feedback</h3>
+        <h3 class="text-color-primary">Plan your project</h3>
         <p>
-          Bug Zapper allows users to view and comment on bugs to promote user feedback and track
-          your users' interest and priority.
+          As the idea continues to grow, you begin thinking through the details. You consider the
+          materials and expenses you'll need, and record them in CraftCaddy. You begin to form a
+          process of steps, which you record as tasks within CraftCaddy.
         </p>
       </FadeIn>
       <FadeIn class="mb-10">
-        <h3 class="text-color-primary">Monitor bug status</h3>
+        <h3 class="text-color-primary">Do it!</h3>
         <p>
-          Bug Zapper provides a comprehensive dashboard for app owners to track bug status, view
-          summary statistics, and understand the overall health of their applications at a glance.
+          Let the fun begin! You can use CraftCaddy to track your progress, and to record the
+          materials and expenses you came across as you worked on your app. When you're done, snap
+          some pics so you can showcase your project on your profile and share it with your friends!
         </p>
       </FadeIn>
     </section>
