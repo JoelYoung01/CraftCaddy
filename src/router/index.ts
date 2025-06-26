@@ -5,6 +5,7 @@ import LandingPage from "@/views/LandingPage.vue";
 import NotFound from "@/views/NotFound.vue";
 import GetStarted from "@/views/GetStarted.vue";
 import MyAccount from "@/views/MyAccount.vue";
+import UserDashboard from "@/views/UserDashboard.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,6 +42,11 @@ const router = createRouter({
       meta: {
         noAuthReq: true
       }
+    },
+    {
+      path: "/dashboard",
+      name: "Dashboard",
+      component: UserDashboard
     },
     {
       path: "/:pathMatch(.*)*",

@@ -5,10 +5,12 @@ const sessionStore = useSessionStore();
 </script>
 
 <template>
-  <div class="header-bar d-flex text-black font-weight-bold justify-space-between">
+  <div class="header-bar d-flex text-black font-weight-bold gap-6">
     <RouterLink class="text-h6" to="/"> CraftCaddy </RouterLink>
-    <RouterLink v-if="!sessionStore.isLoggedIn" to="/"> Log In </RouterLink>
-    <RouterLink v-else to="/"> My Account </RouterLink>
+    <v-spacer />
+    <RouterLink to="/dashboard"> Dashboard </RouterLink>
+    <RouterLink v-if="!sessionStore.isLoggedIn" to="/login"> Log In </RouterLink>
+    <RouterLink v-else to="/account"> My Account </RouterLink>
   </div>
 </template>
 
