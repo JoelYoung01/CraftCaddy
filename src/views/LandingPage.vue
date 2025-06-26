@@ -47,33 +47,34 @@ import Logo from "@/assets/app_logo.png";
     </section>
 
     <section id="register">
-      <h2 class="text-h4 font-weight-bold mb-5">Register Your App</h2>
+      <h2 class="text-h4 font-weight-bold mb-5">Get Started!</h2>
       <FadeIn>
         <v-row>
           <v-col cols="12" lg="4">
             <v-card class="h-100">
-              <div class="text-h6 px-2 py-3 text-center text-primary">1 App</div>
+              <div class="text-h6 px-2 py-3 text-center text-primary">Beginner</div>
               <v-card-subtitle class="text-center">Free</v-card-subtitle>
               <v-card-text class="text-center">
-                Perfect for small projects or personal use.
+                1 Active Project. Perfect for trying out CraftCaddy.
               </v-card-text>
             </v-card>
           </v-col>
           <v-col cols="12" lg="4">
             <v-card class="h-100">
-              <div class="text-h6 px-2 py-3 text-center text-primary">Up to 5 Apps</div>
+              <div class="text-h6 px-2 py-3 text-center text-primary">Hobbyist</div>
               <v-card-subtitle class="text-center">$5/mo</v-card-subtitle>
               <v-card-text class="text-center">
-                Ideal for small teams and growing projects.
+                Up to 10 active projectss, a badge for your profile, and more!
               </v-card-text>
             </v-card>
           </v-col>
           <v-col cols="12" lg="4">
             <v-card class="h-100">
-              <div class="text-h6 px-2 py-3 text-center text-primary">More than 5 Apps</div>
+              <div class="text-h6 px-2 py-3 text-center text-primary">Pro</div>
               <v-card-subtitle class="text-center">$1/mo per app</v-card-subtitle>
               <v-card-text class="text-center">
-                Best for larger teams and enterprises.
+                Unlimited Active Projects, a badge for your profile, a portfolio of your projects,
+                and more!
               </v-card-text>
             </v-card>
           </v-col>
@@ -92,11 +93,7 @@ section {
   flex-direction: column;
   justify-content: center;
   padding-bottom: 4rem;
-  min-height: 100vh;
+  min-height: 70vh;
   gap: 1rem;
-}
-
-#title {
-  min-height: calc(100vh - 5rem);
 }
 </style>
